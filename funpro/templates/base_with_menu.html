@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<header id="header">
+	<div class="container">
+		<nav>
+			<ul>
+				<li class="logo"><a href="{% url 'dashboard' %}"><img src="{{ STATIC_URL }}assets/funpro-logo.png" alt="funpro logo" /></a></li
+				><li class="item"><a href="#">intro</a></li
+				><li class="item"><a href="#">descripti&oacute;n</a></li
+				><li class="item"><a href="#">explicaci&oacute;n</a></li
+				><li class="item"><a href="#">ejercicio</a></li
+				><li class="item"><a href="#">actividad</a></li
+				><li class="item"><a href="#">evaluaci&oacute;n</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+{% endblock %}

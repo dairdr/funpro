@@ -1,0 +1,97 @@
+/* colors */
+@PETER-RIVER: #3498DB;
+@BELIZE-HOLE: #2980B9;
+@SUN-FLOWER: #F1C40F;
+@ORANGE: #F39C12;
+@SILVER: #BDC3C7;
+@ALIZARIN: #E74C3C;
+@EMERALD: #2ECC71;
+@NEPHRITIS: #27AE60;
+@POMEGRANATE: #C0392B;
+@CLOUDS: #ECF0F1;
+/* end colors */
+
+/* font */
+@font-name-main: 'Poiret One';
+@font-name-second: 'Arial';
+@font-name-third: 'Raleway', 'sans-serif';
+@font-size: 16px;
+/* end font */
+
+/* mixin */
+.font-smooth(){
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+.display-inline(@v-align){
+	display: inline-block;
+	vertical-align: @v-align;
+	display: -moz-inline-stack;
+	*display: inline;
+	zoom: 1;
+}
+.box-sizing(){
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.placeholder(@content) {
+	&::-webkit-input-placeholder {
+		@content();
+	}
+	&:-moz-placeholder {
+		@content();
+	}
+	&::-moz-placeholder {
+		@content();
+	}
+	&::-ms-input-placeholder {
+		@content();
+	}
+}
+.font-smooth(){
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+/* end mixin */
+
+/* general styles */
+body {
+	font-size: @font-size;
+	font-family: @font-name-third;
+	.font-smooth();
+	margin: 0 auto;
+	background-color: #fff;
+	color: #333;
+}
+
+body > section {
+	min-height: 400px;
+}
+
+ul, ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: @PETER-RIVER;
+}
+
+img {
+	max-width: 100%;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+}
+/* end general styles */

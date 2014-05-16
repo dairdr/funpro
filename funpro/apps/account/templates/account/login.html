@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | Funpro{% endblock %}
+
+{% block content %}
+<div id="login-panel">
+	<div class="inner">
+		<div class="header">
+			<strong>Login</strong>
+		</div>
+		<div class="content">
+			<div class="logo">
+				<img src="{{ STATIC_URL }}assets/funpro-logo.png" alt="" />
+			</div>
+			<form action="{% url 'account-login' %}" method="post">
+				{% csrf_token %}
+				{% if form.errors %}
+				<div class="alert">
+					<p>Datos inv&aacute;lidos</p>
+				</div>
+				{% endif %}
+				<div class="control-container">
+					<input required type="text" name="username" placeholder="Usuario" autocomplete="off" />
+				</div>
+				<div class="control-container">
+					<input required type="password" name="password" placeholder="Contrase&ntilde;a" />
+				</div>
+				<div class="control-container">
+					<input type="submit" value="Entrar" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

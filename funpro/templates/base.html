@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-co">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>{% block title %}Title Page{%  endblock %}</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}libs/normalize/normalize.css" />
+	<link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}css/style.less" />
+	<!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />-->
+	{% block stylesheets %}{%  endblock %}
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+	{% block javascripts %}{%  endblock %}
+</head>
+<body>
+	{% block navbar %}{% endblock %}
+	<section>
+		{% block content %}{% endblock %}
+	</section>
+	<footer id="footer">
+		<div class="sponsors">
+			<div class="shield">
+				<a href="#" target="_blank">
+					<img src="{{ STATIC_URL }}assets/unicor_shield.png" alt="unicor shield">
+				</a>
+			</div>
+			<div class="shield">
+				<a href="#" target="_blank">
+					<img src="{{ STATIC_URL }}assets/edupmedia_logo.png" alt="edupmedia logo">
+				</a>
+			</div>
+			<div class="shield">
+				<a href="#" target="_blank">
+					<img src="{{ STATIC_URL }}assets/unal_shield.png" alt="unal medellin shield">
+				</a>
+			</div>
+			<div class="shield">
+				<a href="#" target="_blank">
+					<img src="{{ STATIC_URL }}assets/bsu_shield.png" alt="bowie state university shield">
+				</a>
+			</div>
+		</div>
+		<small>Developed with <span style="color:red;font-size:16px;">&#10084;</span> by <a href="https://twitter.com/dairdr">dairdr</a></small>
+	</footer>
+	<!--<script type="text/javascript" src="{{ STATIC_URL }}libs/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>-->
+	{% block javascripts_bottom %}{%  endblock %}
+</body>
+</html>

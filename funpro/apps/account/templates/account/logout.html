@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout | FunPro{% endblock %}
+
+{% block content %}
+<div id="logout-panel">
+	<div class="header">
+		<h2>&iexcl;est&aacute;s fuera!</h2>
+	</div>
+	<div class="content">
+		<p>Usted ha salido correctamente, para entrar nuevamente haga click <a href="{% url 'account-login' %}">aqu&iacute;</a></p>
+	</div>
+</div>
+{% endblock %}
