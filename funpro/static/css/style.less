@@ -18,16 +18,20 @@
 						color: inherit;
 						padding: 1em 1.5em;
 						text-transform: capitalize;
-						border-bottom: solid 2px transparent;
+						border-bottom: solid 3px transparent;
 
 						&:hover {
 							background: @POMEGRANATE;
+						}
+
+						&.active {
+							border-bottom: solid 3px @SUN-FLOWER;
 						}
 					}
 				}
 
 				&.logo {
-					margin-right: 0.5em;
+					margin-right: 7em;
 				}
 			}
 		}
@@ -151,7 +155,7 @@
 /* DASHBOARD */
 #dashboard {
 	max-width: 90%;
-	margin: 2em auto;
+	margin: 1em auto 2em;
 
 	> div {
 		.display-inline(top);
@@ -162,21 +166,22 @@
 
 		.panel {
 			.header {
-				margin-bottom: 0.5em;
+				margin: 0.5em 0;
 
 				h2 {
 					text-transform: uppercase;
 					font-weight: normal;
+					font-size: 1em;
 				}
 			}
 
 			.content {
 				ul {
 					li {
-						padding: 0.2em 0;
+						padding: 0.1em 0;
 
 						a {
-							text-transform: uppercase;
+							text-transform: capitalize;
 							font-size: 0.9em;
 						}
 					}
@@ -187,6 +192,8 @@
 
 	.right {
 		width: 82.713915298%;/*957px / 1157px*/
+		background: #eee;
+		min-height: 550px
 	}
 
 	.info {
@@ -215,6 +222,7 @@
 		.shield {
 			.display-inline(middle);
 			margin: 0 1em;
+			width: 11%;
 		}
 	}
 }
