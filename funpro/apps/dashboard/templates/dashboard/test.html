@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %}Test de felder | Funpro{% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block left %}
+{% include 'dashboard/options_panel.html' %}
+{% include 'dashboard/help_panel.html' %}
+{% endblock %}
+
+{% block right %}
+<div class="test module-container">
+	<div class="header module-header">
+		<h2>test de felder</h2>
+	</div>
+	<div class="module-content">
+		{% if test and test|length > 0%}
+		{% for item in test %}
+		<div class="item">
+			<div>
+				<p>{{ item.pos }}. {{ item.name|escape }}</p>
+			</div>
+			<div>
+				<div>
+					<input id="{{ item.id }}-a" type="radio" name="{{ item.id }}" />
+					<label for="{{ item.id }}-a">{{ item.option_a }}</label>
+				</div>
+				<div>
+					<input id="{{ item.id }}-b" type="radio" name="{{ item.id }}" />
+					<label for="{{ item.id }}-b">{{ item.option_b }}</label>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		<div class="submit">
+			<input type="submit" value="Enviar" />
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

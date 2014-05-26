@@ -2,55 +2,33 @@
 
 {% block title %}Dashboard | Funpro{% endblock %}
 
+{% block menu %}
+<nav>
+	<ul>
+		<li class="item"><a class="active" href="#">intro</a></li
+		><li class="item"><a class="" href="#">descripci&oacute;n</a></li
+		><li class="item"><a class="" href="#">explicaci&oacute;n</a></li
+		><li class="item"><a class="" href="#">ejercicio</a></li
+		><li class="item"><a class="" href="#">actividad</a></li
+		><li class="item"><a class="" href="#">evaluaci&oacute;n</a></li>
+	</ul>
+</nav>
+{% endblock %}
+
 {% block content %}
 <section id="dashboard">
 	<div class="info">
-		<span>Bienvenido <strong>dair d&iacute;az</strong> <a href="#">salir</a></span>
+		<span>Bienvenido <strong>dair d&iacute;az</strong> <a href="{% url 'account-logout' %}">salir</a></span>
 	</div>
 	<div class="left">
-		<div class="panel">
-			<div class="header">
-				<h2>opciones</h2>
-			</div>
-			<div class="content">
-				<ul>
-					<li><a href="#">&raquo; info del curso</a></li>
-					<li><a href="#">&raquo; mi rendimiento</a></li>
-					<li><a href="#">&raquo; qu&eacute; hacer</a></li>
-					<li><a href="#">&raquo; recursos</a></li>
-					<li><a href="#">&raquo; mi perfil</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="header">
-				<h2>recomiendaciones</h2>
-			</div>
-			<div class="content">
-				<ul>
-					<li><a href="#">&raquo; recurso uno</a></li>
-					<li><a href="#">&raquo; recurso dos</a></li>
-					<li><a href="#">&raquo; recurso tres</a></li>
-					<li><a href="#">&raquo; recurso cuatro</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="header">
-				<h2>ayuda</h2>
-			</div>
-			<div class="content">
-				<ul>
-					<li><a href="#">&raquo; tema uno</a></li>
-					<li><a href="#">&raquo; tema dos</a></li>
-					<li><a href="#">&raquo; tema tres</a></li>
-					<li><a href="#">&raquo; tema cuatro</a></li>
-				</ul>
-			</div>
-		</div>
+		{% block left %}
+		{% include 'dashboard/options_panel.html' %}
+		{% include 'dashboard/recommendation_panel.html' %}
+		{% include 'dashboard/help_panel.html' %}
+		{% endblock %}
 	</div
 	><div class="right">
-		<span>content</span>
+		{% block right %}{% endblock %}
 	</div>
 </section>
 {% endblock %}

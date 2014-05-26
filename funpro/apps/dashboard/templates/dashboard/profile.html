@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %}Profile | Funpro{% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block left %}
+{% include 'dashboard/options_panel.html' %}
+{% include 'dashboard/help_panel.html' %}
+{% endblock %}
+
+{% block right %}
+<div class="profile module-container">
+	<div class="header module-header">
+		<h2>mi perfil</h2>
+	</div>
+	<div class="module-content">
+		<div class="left-side">
+			<div class="pic">
+				<img src="http://www.bradfordcityfc.co.uk/images/common/bg_player_profile_default_big.png" alt="">
+			</div>
+			<div class="options">
+				<a href="#">cambiar imagen</a>
+			</div>
+		</div
+		><div class="right-side">
+			<div class="row">
+				<strong>dair diaz rambao <a href="#">editar</a></strong>
+			</div>
+			<div class="row">
+				<strong>24/07/1990 <a href="#">editar</a></strong>
+			</div>
+			<div class="row">
+				<strong class="email">eldaro10@gmail.com <a href="#">editar</a></strong>
+			</div>
+			<div class="row">
+				<strong>aprendizaje visual <a href="{% url 'dashboard-test' %}">iniciar test</a></strong>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

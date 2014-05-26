@@ -2,36 +2,43 @@
 
 /* HEADER */
 #header {
+	background: @ALIZARIN;
+
 	.container {
-		background: @ALIZARIN;
+		width: 90%;
+		margin: 0 auto;
+		overflow: hidden;
 
-		ul {
-			color: #fff;
-			text-align: center;
+		.logo {
+			float: left;
+			margin: 0.7em 0;
 
-			li {
-				.display-inline(middle);
+			a {
+				display: block;
+			}
+		}
 
-				&.item {
-					a {
-						display: block;
-						color: inherit;
-						padding: 1em 1.5em;
-						text-transform: capitalize;
-						border-bottom: solid 3px transparent;
+		nav {
+			float: right;
 
-						&:hover {
-							background: @POMEGRANATE;
-						}
+			ul {
+				color: #fff;
 
-						&.active {
-							border-bottom: solid 3px @SUN-FLOWER;
+				li {
+					.display-inline(middle);
+
+					&.item {
+						a {
+							display: block;
+							color: inherit;
+							text-transform: capitalize;
+							padding: 1.09em 1.5em;
+
+							&.active {
+								background: @POMEGRANATE;
+							}
 						}
 					}
-				}
-
-				&.logo {
-					margin-right: 7em;
 				}
 			}
 		}
@@ -161,6 +168,19 @@
 		.display-inline(top);
 	}
 
+	.info {
+		display: block;
+		text-align: right;
+
+		span {
+			strong {
+				text-transform: uppercase;
+				font-weight: normal;
+				font-size: 1.3em;
+			}
+		}
+	}
+
 	.left {
 		width: 17.286084702%;/*200px / 1157px*/
 
@@ -192,19 +212,89 @@
 
 	.right {
 		width: 82.713915298%;/*957px / 1157px*/
-		background: #eee;
-		min-height: 550px
-	}
 
-	.info {
-		display: block;
-		text-align: right;
+		div.module-container {
+			.header {
+				h2 {
+					text-transform: capitalize;
+				}
+			}
 
-		span {
-			strong {
-				text-transform: uppercase;
-				font-weight: normal;
-				font-size: 1.3em;
+			.module-content {
+				margin-top: 1em;
+			}
+		}
+
+		div.profile {
+			.module-content {
+				> div {
+					.display-inline(top);
+				}
+
+				.left-side {
+					margin-right: 2em;
+
+					.options {
+						a {
+							background: @ALIZARIN;
+							padding: 0.5em 1em;
+							color: #fff;
+							font-size: 0.9em;
+							display: block;
+							text-align: center;
+							text-transform: capitalize;
+
+							&:hover {
+								background: @POMEGRANATE;
+							}
+						}
+					}
+				}
+
+				.right-side {
+					.row {
+						margin-bottom: 0.8em;
+
+						strong {
+							text-transform: capitalize;
+
+							a {
+								font-size: 0.8em;
+								text-transform: lowercase;
+							}
+
+							&.email {
+								text-transform: lowercase;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		div.test {
+			.module-content {
+				.item {
+					margin-bottom: 1em;
+
+					p {
+						font-size: 1.1em;
+						margin-bottom: 0.3em;
+					}
+				}
+
+				.submit {
+					input {
+						border: none;
+						background: @ALIZARIN;
+						padding: 0.5em 1em;
+						color: #fff;
+
+						&:hover {
+							background: @POMEGRANATE;
+						}
+					}
+				}
 			}
 		}
 	}

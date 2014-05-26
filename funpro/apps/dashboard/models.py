@@ -229,3 +229,19 @@ class PedagogicStrategySpecificRecommendation(models.Model):
 
 	def __unicode__(self):
 		return self.performance
+
+class Test(models.Model):
+	"""Test table class."""
+	pos = models.PositiveSmallIntegerField(max_length=3, db_column='pos', null=True, blank=False)
+	name = models.TextField(max_length='300', db_column='name', null=True, blank=False)
+	option_a = models.TextField(max_length='300', db_column='option_a', null=True, blank=False)
+	option_b = models.TextField(max_length='300', db_column='option_b', null=True, blank=False)
+
+	class Meta:
+		db_table = 'test'
+		ordering = ['id']
+		verbose_name = 'test'
+		verbose_name_plural = 'tests'
+
+	def __unicode__(self):
+		return self.name
