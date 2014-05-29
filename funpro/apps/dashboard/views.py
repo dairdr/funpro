@@ -42,7 +42,7 @@ class TestView(TemplateView):
 
 class SaveTestView(View):
 	"""Save felder test."""
-	http_method_names = ['post']
+	http_method_names = ['post','get']
 	redirect_url = 'dashboard-profile'
 
 	def post(self, request):
