@@ -21,19 +21,20 @@
 	</div>
 	<div class="module-content">
 		{% if test and test|length > 0 %}
-		<form id="test" method="post" action="">
+		<form id="test" method="post" action="{% url 'dashboard-save-test' %}">
+			{% csrf_token %}
 			{% for item in test %}
-			<div class="item">
+			<div class="item item-{{ item.pos }}">
 				<div>
 					<p>{{ item.pos }}. {{ item.name|escape }}</p>
 				</div>
 				<div>
 					<div>
-						<input id="{{ item.id }}-a" type="radio" name="{{ item.id }}" value="a" />
+						<input id="{{ item.id }}-a" type="radio" name="{{ item.pos }}" value="a" />
 						<label for="{{ item.id }}-a">{{ item.option_a }}</label>
 					</div>
 					<div>
-						<input id="{{ item.id }}-b" type="radio" name="{{ item.id }}" value="b" />
+						<input checked id="{{ item.id }}-b" type="radio" name="{{ item.pos }}" value="b" />
 						<label for="{{ item.id }}-b">{{ item.option_b }}</label>
 					</div>
 				</div>

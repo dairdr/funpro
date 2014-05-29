@@ -14,6 +14,13 @@
 	<div class="header module-header">
 		<h2>mi perfil</h2>
 	</div>
+	{% if messages %}
+	<ul class="messages">
+	{% for message in messages %}
+		<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
 	<div class="module-content">
 		<div class="left-side">
 			<div class="pic">
@@ -25,13 +32,13 @@
 		</div
 		><div class="right-side">
 			<div class="row">
-				<strong>dair diaz rambao <a href="#">editar</a></strong>
+				<strong>{{ user.get_short_name }} <a href="#">editar</a></strong>
 			</div>
 			<div class="row">
 				<strong>24/07/1990 <a href="#">editar</a></strong>
 			</div>
 			<div class="row">
-				<strong class="email">eldaro10@gmail.com <a href="#">editar</a></strong>
+				<strong class="email">{{ user.email }} <a href="#">editar</a></strong>
 			</div>
 			<div class="row">
 				<strong>aprendizaje visual <a href="{% url 'dashboard-test' %}">iniciar test</a></strong>
