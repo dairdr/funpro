@@ -18,9 +18,18 @@ admin.site.register(LessonComponent)
 admin.site.register(LessonComponentHasPedagogicTactic)
 
 admin.site.register(TeachingMethod)
+admin.site.register(TeachingMethodHasPedagogicTactic)
+
 admin.site.register(NavigationStyle)
 admin.site.register(PedagogicStrategyGeneralRecommendation)
+
 admin.site.register(LearningResource)
+admin.site.register(PedagogicTacticHasLearningResource)
+
 admin.site.register(PedagogicStrategySpecificRecommendation)
 admin.site.register(Test)
 admin.site.register(StyleName)
+admin.site.register(LessonStructure)
+admin.site.register(Structure)
+admin.site.register(StyleValue)
+admin.site.register(GivesSupportTo)
