@@ -10,7 +10,7 @@ from django.db import transaction, IntegrityError
 from libs.utils.utils import check_answers, ACT_REF, SEN_INT, VIS_VRB, SEC_GLO
 from django.contrib import messages
 
-from models import Test
+from models import Test, LearningStyle, LearningStyleDimension
 
 class IndexView(TemplateView):
 	"""Represents index page."""
@@ -42,7 +42,7 @@ class TestView(TemplateView):
 
 class SaveTestView(View):
 	"""Save felder test."""
-	http_method_names = ['post','get']
+	http_method_names = ['post']
 	redirect_url = 'dashboard-profile'
 
 	def post(self, request):
@@ -51,4 +51,11 @@ class SaveTestView(View):
 		g3 = check_answers(VIS_VRB, request, ['visual','verbal'])
 		g4 = check_answers(SEC_GLO, request, ['secuencial','global'])
 		messages.success(request, 'Resultados: %s, %s, %s, %s' % (g1, g2, g3, g4))
+
+		try:
+			with transaction.atomic():
+				learning_style, created = LearningStyle.objects.get_or_create(processing=g1, perception=g2, reception=g3, understanding=g4)
+				learning_style_dimension, created = LearningStyleDimension.objects.get(student=request.user, learning_style=learning_style)
+		except:
+			pass
 		return HttpResponseRedirect(reverse(self.redirect_url))

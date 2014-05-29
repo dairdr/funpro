@@ -85,7 +85,6 @@ class PedagogicalStrategyContext(models.Model):
 
 class LearningStyle(models.Model):
 	"""LearningStyle table class."""
-	name = models.CharField(max_length=45, db_column='name', null=True)
 	processing = models.CharField(max_length=45, db_column='processing', null=True)
 	perception = models.CharField(max_length=45, db_column='perception', null=True)
 	reception = models.CharField(max_length=45, db_column='reception', null=True)
@@ -98,7 +97,7 @@ class LearningStyle(models.Model):
 		verbose_name_plural = 'learning_styles'
 
 	def __unicode__(self):
-		return self.name
+		return 'learning_style'
 
 class LearningStyleDimension(models.Model):
 	"""LearningStyleDimension table class."""
@@ -333,7 +332,7 @@ class LessonStructure(models.Model):
 
 class Structure(models.Model):
 	"""Structure table class."""
-	style_value = models.ForeignKey('StyleValue', db_column='style_value', on_delete=models.PROTECT)
+	style_value = models.ForeignKey('StyleName', db_column='style_value', on_delete=models.PROTECT)
 
 	class Meta:
 		db_table = 'dashboard_structure'
@@ -344,22 +343,9 @@ class Structure(models.Model):
 	def __unicode__(self):
 		return 'structure'
 
-class StyleValue(models.Model):
-	"""StyleValue table class."""
-	name = models.CharField(max_length=45, db_column='name', null=True)
-
-	class Meta:
-		db_table = 'dashboard_style_value'
-		ordering = ['id']
-		verbose_name = 'style_value'
-		verbose_name_plural = 'style_values'
-
-	def __unicode__(self):
-		return self.name
-
 class GivesSupportTo(models.Model):
 	"""GivesSupportTo table class."""
-	style_value = models.ForeignKey(StyleValue, db_column='style_value', on_delete=models.PROTECT)
+	style_value = models.ForeignKey(StyleName, db_column='style_value', on_delete=models.PROTECT)
 	pedagogic_tactic = models.ForeignKey(PedagogicTactic, db_column='pedagogic_tactic', on_delete=models.PROTECT)
 
 	class Meta:
