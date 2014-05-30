@@ -10,7 +10,7 @@ from django.db import transaction, IntegrityError
 from libs.utils.utils import check_answers, ACT_REF, SEN_INT, VIS_VRB, SEC_GLO
 from django.contrib import messages
 
-from models import Test, LearningStyle, LearningStyleDimension
+from models import Test, LearningStyle, LearningStyleDimension, StyleName
 
 class IndexView(TemplateView):
 	"""Represents index page."""
@@ -46,16 +46,21 @@ class SaveTestView(View):
 	redirect_url = 'dashboard-profile'
 
 	def post(self, request):
-		g1 = check_answers(ACT_REF, request, ['activo','reflexivo'])
-		g2 = check_answers(SEN_INT, request, ['sensorial','intuitivo'])
-		g3 = check_answers(VIS_VRB, request, ['visual','verbal'])
-		g4 = check_answers(SEC_GLO, request, ['secuencial','global'])
-		messages.success(request, 'Resultados: %s, %s, %s, %s' % (g1, g2, g3, g4))
-
 		try:
-			with transaction.atomic():
-				learning_style, created = LearningStyle.objects.get_or_create(processing=g1, perception=g2, reception=g3, understanding=g4)
-				learning_style_dimension, created = LearningStyleDimension.objects.get(student=request.user, learning_style=learning_style)
+			style_names = StyleName.objects.all()
 		except:
 			pass
+		else:
+			g1 = check_answers(ACT_REF, request, [style_names[0],style_names[1]])
+			g2 = check_answers(SEN_INT, request, [style_names[2],style_names[3]])
+			g3 = check_answers(VIS_VRB, request, [style_names[4],style_names[5]])
+			g4 = check_answers(SEC_GLO, request, [style_names[6],style_names[7]])
+			messages.success(request, 'Resultados: %s, %s, %s, %s' % (g1, g2, g3, g4))
+
+			try:
+				with transaction.atomic():
+					learning_style, created = LearningStyle.objects.get_or_create(processing=g1, perception=g2, reception=g3, understanding=g4)
+					learning_style_dimension, created = LearningStyleDimension.objects.get(student=request.user, learning_style=learning_style)
+			except:
+				pass
 		return HttpResponseRedirect(reverse(self.redirect_url))

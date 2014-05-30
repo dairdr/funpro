@@ -31,6 +31,7 @@ class Student(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(db_column='email', blank=False, unique=True)
 	first_name = models.CharField(db_column='first_name', max_length=45, blank=False, null=False)
 	last_name = models.CharField(db_column='last_name', max_length=45, blank=True, null=True)
+	date_of_birth = models.DateField(db_column='date_of_birth', null=True)
 	is_staff = models.BooleanField(db_column='is_staff', default=False)
 	is_active = models.BooleanField(db_column='is_active', default=True)
 	date_joined = models.DateTimeField(db_column='date_joined', default=timezone.now)
