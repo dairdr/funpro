@@ -1,0 +1,33 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load staticfiles %}
+
+{% block title %}Cursos{% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block left %}
+{% include 'dashboard/options_panel.html' %}
+{% include 'dashboard/help_panel.html' %}
+{% endblock %}
+
+{% block right %}
+<div class="test module-container">
+	<div class="header module-header">
+		<h2>cursos</h2>
+	</div>
+	<div class="module-content">
+		{{ list }}
+		{% if courses and courses|length > 0 %}
+		<div class="group-list">
+			{% for item in courses %}
+			<div class="item-list">
+				<a href="{% url 'dashboard-course' item.course.code %}">{{ item.course.name|escape|capfirst }}</a>
+			</div>
+			{% endfor %}
+		</div>
+		{% else %}
+		<h3>No hay cursos asignados a&uacute;n.</h3>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

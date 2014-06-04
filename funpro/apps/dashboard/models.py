@@ -26,6 +26,7 @@ class Teacher(models.Model):
 
 class Course(models.Model):
 	"""Course table class."""
+	code = models.CharField(max_length=45, db_column='code', null=True, blank=False, unique=True)
 	name = models.CharField(max_length=45, db_column='name', null=True)
 	teacher = models.ForeignKey(Teacher, db_column='teacher', on_delete=models.PROTECT)
 
@@ -38,12 +39,25 @@ class Course(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Season(models.Model):
+	"""Season table class."""
+	name = models.CharField(max_length=45, db_column='name', null=True)
+
+	class Meta:
+		db_table = 'dashboard_season'
+		ordering = ['id']
+		verbose_name = 'season'
+		verbose_name_plural = 'seasons'
+
+	def __unicode__(self):
+		return self.name
+
 class StudentHasCourse(models.Model):
 	"""StudentHasCourse table class."""
 	student = models.ForeignKey(settings.AUTH_USER_MODEL, db_column='student', on_delete=models.PROTECT)
 	course = models.ForeignKey(Course, db_column='course', on_delete=models.PROTECT)
-	season = models.CharField(db_column='season', max_length=45, null=True)
-	performance = models.DecimalField(db_column='performance', max_digits=5, decimal_places=2, null=True)
+	season = models.ForeignKey(Season, db_column='season', on_delete=models.PROTECT)
+	performance = models.DecimalField(db_column='performance', max_digits=5, decimal_places=2, default=0.0)
 
 	class Meta:
 		db_table = 'dashboard_student_has_course'
@@ -52,7 +66,7 @@ class StudentHasCourse(models.Model):
 		verbose_name_plural = 'student_has_courses'
 
 	def __unicode__(self):
-		return self.name
+		return '%s (%s)' % (self.student.first_name, self.course.name)
 
 class Lesson(models.Model):
 	"""Lesson table class."""
@@ -246,6 +260,7 @@ class LearningResource(models.Model):
 	"""LearningResource table class."""
 	name = models.CharField(max_length=45, db_column='name', null=True)
 	url = models.TextField(db_column='url', null=True)
+	lesson_component = models.ManyToManyField(LessonComponent, through='LearningResourceHasLessonComponent')
 
 	class Meta:
 		db_table = 'dashboard_learning_resource'
@@ -255,6 +270,20 @@ class LearningResource(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+class LearningResourceHasLessonComponent(models.Model):
+	"""LearningResourceHasLessonComponent table class"""
+	learning_resource = models.ForeignKey(LearningResource, db_column='learning_resource', on_delete=models.PROTECT)
+	lesson_component = models.ForeignKey(LessonComponent, db_column='lesson_component', on_delete=models.PROTECT)
+
+	class Meta:
+		db_table = 'dashboard_learning_resource_has_lesson_component'
+		ordering = ['id']
+		verbose_name = 'learning_resource_has_lesson_component'
+		verbose_name_plural = 'learning_resource_has_lesson_components'
+
+	def __unicode__(self):
+		return 'learning_resource_has_lesson_component'
 
 class PedagogicTacticHasLearningResource(models.Model):
 	"""PedagogicTacticHasLearningResource table class."""
@@ -332,7 +361,9 @@ class LessonStructure(models.Model):
 
 class Structure(models.Model):
 	"""Structure table class."""
-	style_value = models.ForeignKey('StyleName', db_column='style_value', on_delete=models.PROTECT)
+	name = models.CharField(max_length=45, db_column='name', null=True)
+	style_name = models.ManyToManyField(StyleName, through='StructureHasStyleName')
+	lesson_component = models.ManyToManyField(LessonComponent, through='StructureHasLessonComponent')
 
 	class Meta:
 		db_table = 'dashboard_structure'
@@ -341,11 +372,39 @@ class Structure(models.Model):
 		verbose_name_plural = 'structures'
 
 	def __unicode__(self):
-		return 'structure'
+		return self.name
+
+class StructureHasStyleName(models.Model):
+	"""StructureHasStyleName table class."""
+	structure = models.ForeignKey(Structure, db_column='structure', on_delete=models.PROTECT)
+	style_name = models.ForeignKey(StyleName, db_column='style_name', on_delete=models.PROTECT)
+
+	class Meta:
+		db_table = 'dashboard_structure_has_style_name'
+		ordering = ['id']
+		verbose_name = 'structure_has_style_name'
+		verbose_name_plural = 'structure_has_style_names'
+
+	def __unicode__(self):
+		return 'structure_has_style_name'
+
+class StructureHasLessonComponent(models.Model):
+	"""StructureHasLessonComponent table class."""
+	structure = models.ForeignKey(Structure, db_column='structure', on_delete=models.PROTECT)
+	lesson_component = models.ForeignKey(LessonComponent, db_column='lesson_component', on_delete=models.PROTECT)
+
+	class Meta:
+		db_table = 'dashboard_structure_has_lesson_component'
+		ordering = ['id']
+		verbose_name = 'structure_has_lesson_component'
+		verbose_name_plural = 'structure_has_lesson_components'
+
+	def __unicode__(self):
+		return 'structure_has_lesson_component'
 
 class GivesSupportTo(models.Model):
 	"""GivesSupportTo table class."""
-	style_value = models.ForeignKey(StyleName, db_column='style_value', on_delete=models.PROTECT)
+	style_name = models.ForeignKey(StyleName, db_column='style_name', on_delete=models.PROTECT)
 	pedagogic_tactic = models.ForeignKey(PedagogicTactic, db_column='pedagogic_tactic', on_delete=models.PROTECT)
 
 	class Meta:
@@ -356,3 +415,18 @@ class GivesSupportTo(models.Model):
 
 	def __unicode__(self):
 		return 'gives_support_to'
+
+class Session(models.Model):
+	"""Session table class."""
+	pedagogical_strategy_context = models.ForeignKey(PedagogicalStrategyContext, db_column='pedagogical_strategy_context', on_delete=models.PROTECT)
+	pedagogic_strategy_general_recommendation = models.ForeignKey(PedagogicStrategyGeneralRecommendation, db_column='pedagogic_strategy_general_recommendation', on_delete=models.PROTECT)
+	pedagogic_strategy_specific_recommendation = models.ForeignKey(PedagogicStrategySpecificRecommendation, db_column='pedagogic_strategy_specific_recommendation', on_delete=models.PROTECT)
+
+	class Meta:
+		db_table = 'dashboard_session'
+		ordering = ['id']
+		verbose_name = 'gives_session'
+		verbose_name_plural = 'gives_sessions'
+
+	def __unicode__(self):
+		return 'session'

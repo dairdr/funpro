@@ -1,8 +1,9 @@
+{% load staticfiles %}
 <header id="header">
 	<div class="container">
 		<nav>
 			<ul>
-				<li class="logo"><a href="{% url 'dashboard' %}"><img src="{{ STATIC_URL }}assets/funpro-logo.png" alt="funpro logo" /></a></li
+				<li class="logo"><a href="{% url 'dashboard' %}"><img src="{% static 'assets/funpro-logo.png' %}" alt="funpro logo" /></a></li
 				><li class="item"><a class="active" href="#">intro</a></li
 				><li class="item"><a class="" href="#">descripti&oacute;n</a></li
 				><li class="item"><a class="" href="#">explicaci&oacute;n</a></li

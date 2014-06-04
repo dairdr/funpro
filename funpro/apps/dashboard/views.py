@@ -10,15 +10,31 @@ from django.db import transaction, IntegrityError
 from libs.utils.utils import check_answers, ACT_REF, SEN_INT, VIS_VRB, SEC_GLO
 from django.contrib import messages
 
-from models import Test, LearningStyle, LearningStyleDimension, StyleName
+from models import *
 
 class IndexView(TemplateView):
 	"""Represents index page."""
 	http_method_names = ['get']
-	template_name = 'dashboard/dashboard.html'
+	template_name = 'dashboard/courses.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
+		try:
+			learning_style_dimension = LearningStyleDimension.objects.get(student=self.request.user)
+			pedagogical_strategy_context = PedagogicalStrategyContext.objects.get(learning_style_dimension=learning_style_dimension)
+			general_recommendation = PedagogicStrategyGeneralRecommendation.objects.filter(pedagogical_strategy_context=pedagogical_strategy_context)
+			specific_recommendation = PedagogicStrategySpecificRecommendation.objects.filter(pedagogic_strategy_general_recommendation=general_recommendation)
+		except:
+			pass
+		else:
+			Session.objects.filter()
+
+		try:
+			courses = StudentHasCourse.objects.filter(student=self.request.user)
+		except:
+			pass
+		else:
+			context.update({'courses':courses})
 		return context
 
 class ProfileView(TemplateView):
@@ -64,3 +80,12 @@ class SaveTestView(View):
 			except:
 				pass
 		return HttpResponseRedirect(reverse(self.redirect_url))
+
+class CourseView(TemplateView):
+	"""Represents course."""
+	http_method_names = ['get']
+	template_name = 'dashboard/courses.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(CourseView, self).get_context_data(**kwargs)
+		return context

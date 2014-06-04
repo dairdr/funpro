@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block navbar %}
 <header id="header">
 	<div class="container">
 		<div class="logo">
 			<a href="{% url 'dashboard' %}">
-				<img src="{{ STATIC_URL }}assets/funpro-logo.png" alt="funpro logo" />
+				<img src="{% static 'assets/funpro-logo.png' %}" alt="funpro logo" />
 			</a>
 		</div>
 		{% block menu %}{% endblock %}
