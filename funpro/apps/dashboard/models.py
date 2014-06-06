@@ -246,6 +246,8 @@ class PedagogicStrategyGeneralRecommendation(models.Model):
 	pedagogical_strategy_context = models.ForeignKey(PedagogicalStrategyContext, db_column='pedagogical_strategy_context', on_delete=models.PROTECT)
 	teaching_method = models.ForeignKey(TeachingMethod, db_column='teaching_method', on_delete=models.PROTECT)
 	learning_theory = models.ForeignKey(LearningTheory, db_column='learning_theory', on_delete=models.PROTECT)
+	status = models.BooleanField(db_column='status', default=True)
+	generated = models.CharField(db_column='generated', max_length=10, default='auto')
 
 	class Meta:
 		db_table = 'dashboard_pedagogic_strategy_general_recommendation'
@@ -306,6 +308,8 @@ class PedagogicStrategySpecificRecommendation(models.Model):
 	pedagogic_strategy_general_recommendation = models.ForeignKey(PedagogicStrategyGeneralRecommendation, db_column='pedagogic_strategy_general_recommendation', on_delete=models.PROTECT)
 	lesson_component = models.ForeignKey(LessonComponent, db_column='lesson_component', on_delete=models.PROTECT)
 	pedagogic_tactic = models.ForeignKey(PedagogicTactic, db_column='pedagogic_tactic', on_delete=models.PROTECT)
+	status = models.BooleanField(db_column='status', default=True)
+	generated = models.CharField(db_column='generated', max_length=10, default='auto')
 
 	class Meta:
 		db_table = 'dashboard_pedagogic_strategy_specific_recommendation'
@@ -419,8 +423,9 @@ class GivesSupportTo(models.Model):
 class Session(models.Model):
 	"""Session table class."""
 	pedagogical_strategy_context = models.ForeignKey(PedagogicalStrategyContext, db_column='pedagogical_strategy_context', on_delete=models.PROTECT)
-	pedagogic_strategy_general_recommendation = models.ForeignKey(PedagogicStrategyGeneralRecommendation, db_column='pedagogic_strategy_general_recommendation', on_delete=models.PROTECT)
 	pedagogic_strategy_specific_recommendation = models.ForeignKey(PedagogicStrategySpecificRecommendation, db_column='pedagogic_strategy_specific_recommendation', on_delete=models.PROTECT)
+	created_at = models.DateTimeField(db_column='created_at', auto_now=True)
+	student = models.ForeignKey(settings.AUTH_USER_MODEL, db_column='student', on_delete=models.PROTECT)
 
 	class Meta:
 		db_table = 'dashboard_session'
