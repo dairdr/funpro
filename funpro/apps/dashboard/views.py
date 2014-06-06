@@ -20,8 +20,7 @@ class IndexView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
-		# logger = logging.getLogger(__name__)
-		# logger.debug("this is a error message!")
+		logger = logging.getLogger(__name__)
 
 		id_specific = 3
 		id_new_resource = 4
@@ -43,6 +42,9 @@ class IndexView(TemplateView):
 			current_ped_tac = specific.pedagogic_tactic
 
 			if not specific.pedagogic_tactic.id in tactics:
+				# castigo moderado
+				specific.performance -= 1
+
 				# buscar los metodos de ensenanza a los que pertenece las tacticas pedagogicas.
 				teaching_methods = TeachingMethod.objects.filter(pedagogic_tactic__id__in=tactics).values_list('id')
 				tm = TeachingMethod.objects.filter(id__in=teaching_methods)
@@ -51,33 +53,28 @@ class IndexView(TemplateView):
 					# castigo moderado
 					specific.pedagogic_strategy_general_recommendation.performance -= 1
 
-					index = 0
+					# verificar la estrategia pedagogica.
+					i = 0
+					found = False
 					ids = []
-					while tm[index].learning_theory.id != specific.pedagogic_strategy_general_recommendation.learning_theory.id and (index < len(tm)):
-						ids.append(tm[index].learning_theory.id)
-						index += 1
+					while !found and i < len(tm):
+						ids.append(tm[i].learning_theory.id)
+						if tm[i].learning_theory.id == specific.pedagogic_strategy_general_recommendation.learning_theory.id:
+							found = True
+							i -= 1
+						i += 1
 
-					psgr = None
-					if index < len(tm):
-						psgr = PedagogicStrategyGeneralRecommendation(
-							performance=0,
-							pedagogic_tactic_context=None,# enviarlo por GUI
-							teaching_method=tm[index],
-							learning_theory=tm[index].learning_theory,
-							status=True,
-							generated='manual'
-						)
-					else:
-						psgr = PedagogicStrategyGeneralRecommendation(
-							performance=0,
-							pedagogic_tactic_context=None,# enviarlo por GUI
-							teaching_method=tm[0],
-							learning_theory=tm[0].learning_theory,
-							status=True,
-							generated='manual'
-						)
-					current_general = psgr
+					# insertar general recommendation.
+					psgr = PedagogicStrategyGeneralRecommendation(
+						performance=0,
+						pedagogic_tactic_context=None,# enviarlo por GUI
+						teaching_method=tm[i] if found else tm[0],
+						learning_theory=tm[i].learning_theory if found else tm[0].learning_theory,
+						status=True,
+						generated='manual'
+					)
 					psgr.save()
+					current_general = psgr
 
 					if specific.pedagogic_strategy_general_recommendation.learning_theory.id in ids:
 						pass
@@ -85,8 +82,12 @@ class IndexView(TemplateView):
 						# castigo severo
 						specific.pedagogic_strategy_general_recommendation.performance -= 1
 				else:
-					tactic_candidates = PedagogicTactic.objects.filter(teaching_method__id__in=teaching_methods).values_list('id')
-					current_ped_tac = tactic_candidates[0]
+					try:
+						tactic_candidates = PedagogicTactic.objects.filter(teaching_method__id__in=teaching_methods).values_list('id')
+					except:
+						logger.debug("exception")
+					else:
+						current_ped_tac = tactic_candidates[0]
 
 			specific.status = False
 			specific.performance -= 1
