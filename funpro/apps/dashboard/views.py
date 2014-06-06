@@ -53,7 +53,7 @@ class IndexView(TemplateView):
 
 					index = 0
 					ids = []
-					while tm[index].learning_theory.id not specific.pedagogic_strategy_general_recommendation.learning_theory.id and (index < len(tm)):
+					while tm[index].learning_theory.id != specific.pedagogic_strategy_general_recommendation.learning_theory.id and (index < len(tm)):
 						ids.append(tm[index].learning_theory.id)
 						index += 1
 
