@@ -57,7 +57,7 @@ class IndexView(TemplateView):
 					i = 0
 					found = False
 					ids = []
-					while !found and i < len(tm):
+					while not found and i < len(tm):
 						ids.append(tm[i].learning_theory.id)
 						if tm[i].learning_theory.id == specific.pedagogic_strategy_general_recommendation.learning_theory.id:
 							found = True
