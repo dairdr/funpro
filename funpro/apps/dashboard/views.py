@@ -33,7 +33,7 @@ class IndexView(TemplateView):
 			resource = LearningResource.objects.get(id=id_new_resource)
 
 			# extraer los id de las tacticas a las que pertenece al nuevo recurso.
-			tactics = PedagogicTactic.objects.filter(learning_resource=resource).values_list('id')
+			tactics = PedagogicTactic.objects.filter(learning_resource=resource).values_list('id') 
 
 			# current general
 			current_general = specific.pedagogic_strategy_general_recommendation
