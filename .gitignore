@@ -8,8 +8,8 @@ build
 *.pot
 *.pyc
 local_settings.py
-funpro/settings/common.py
-funpro/settings/prod.py
-funpro/settings/dev.py
 cache/*
 static_root/*
+/funpro/settings/prod.py
+/funpro/settings/dev.py
+/funpro/settings/common.py
